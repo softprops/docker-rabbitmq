@@ -1,0 +1,12 @@
+#!/bin/bash
+
+RABBITMQ_USERNAME=${RABBITMQ_USERNAME:-admin}
+RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD:-password}
+
+cat << EOF > /etc/rabbitmq/rabbitmq.config
+[
+    {rabbit, [{default_user, <<"${RABBITMQ_USERNAME}">>},{default_pass, <<"${RABBITMQ_PASSWORD}">>},{tcp_listeners, [{"0.0.0.0", 5672}]}]}
+].
+EOF
+
+/usr/bin/supervisord
